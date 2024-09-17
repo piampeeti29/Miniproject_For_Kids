@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.33/dist/sweetalert2.all.min.js"></script>
+    <title>JS object</title>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <button class="btn btn-success float-end mb-3" id="btnAdd">Add</button>
+        <table class="table table-striped table-bordered">
+        </table>
+    </div>
+
+    <!-- Add/Edit modal -->
+    <div class="modal fade" id="modalAddEdit" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Add student</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control mb-2" id="txtName" placeholder="Name">
+                    <input type="number" class="form-control" id="txtAge" placeholder="Age">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnAddEdit" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Add/Edit modal -->
+
+    <!-- JavaScript -->
+    <script>
+        var students = [
+            {
+                id: 0,
+                name: 'Lisa',
+                age: 22,
+            },
+            {
+                id: 1,
+                name: 'Mike',
+                age: 25,
+            },
+            {
+                id: 2,
+                name: 'Carol',
+                age: 20,
+            },
+        ];
+
+        // variable to keep add/edit mode
+        var mode = "add";
+        // variable to keep Edit id
+        var editID = -1;
+
+        // ====== read =======
+        function readStudent() {
+            let output = '<thead class="table-dark"><tr><th>Name</th> <th>Age</th> <th>Action</th> </tr></thead>';
+            output += '<tbody>';
+            students.forEach(function (student) {
+                output += '<tr>';
+                output += `<td>${student.name}</td>`;
+                output += `<td>${student.age}</td>`;
+                output += `<td><button class="btn btn-danger btnDelete me-2" id=${student.id}>Delete</button>`;
+                output += `<button class="btn btn-warning btnEdit" id=${student.id}>Edit</button></td>`;
+                output += '</tr>';
+            });
+            output += '</tbody>';
+
+            document.querySelector('table').innerHTML = output;
+
+            // -------- delete -------------
+            // add clicking events to delete buttons
+            // find all delete buttons
+            const btnDelete = document.querySelectorAll('.btnDelete');
+            // add onclick event to each button
+            btnDelete.forEach(function (btn) {
+                btn.onclick = function () {
+                    deleteStudent(btn.id);
+                }
+            });
+
+            // alternate method, use event delegation
+            // document.querySelector('table').onclick = function(e) {
+            //     if (e.target.classList.contains("btnDelete")) {
+            //         alert('test')
+            //     }
+            // }
+
+            // -------- add button clicked -------------
+            document.querySelector('#btnAdd').onclick = function() {
+                // show modal
+                modalAddEdit.show();
+                // update modal title
+                document.querySelector('#modalTitleId').innerText = "Add new student";
+                // set add mode
+                mode = "add";
+            }
+
+            // --------- add or edit confirm -----------
+            document.querySelector('#btnAddEdit').onclick = function() {
+                // close modal
+                modalAddEdit.hide();
+                // call function
+                if(mode == "add") {
+                    addStudent();
+                }
+                else {
+                    editStudent();
+                }                
+            }
+
+            // -------- edit button clicked -------------
+            document.querySelector('table').onclick = function(e) {
+                if (e.target.classList.contains("btnEdit")) {
+                    // set mode
+                    mode = "edit";
+                    // selected id
+                    const id = e.target.id;
+                    // find real index in array
+                    let i = 0;
+                    for (i = 0; i < students.length; i++) {
+                        if (students[i].id == id) {
+                            break;
+                        }
+                    }
+                    // keep edit index
+                    editID = i;
+
+                    // show modal
+                    modalAddEdit.show();
+                    // set modal title
+                    document.querySelector('#modalTitleId').innerText = "Edit selected student";
+                    // show previous data
+                    document.querySelector('#txtName').value = students[i].name;
+                    document.querySelector('#txtAge').value = students[i].age;
+                }
+            }
+        }        
+
+        // ====== delete =======
+        function deleteStudent(id) {
+            // confirm delete
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sure to delete this item?',
+                showCancelButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // method1: loop to find deleted target index
+                    let i = 0;
+                    for (i = 0; i < students.length; i++) {
+                        if (students[i].id == id) {
+                            break;
+                        }
+                    }
+                    // delete that item in the array
+                    students.splice(i, 1);
+
+                    // method2: use filter()
+                    // students = students.filter(function(value) {
+                    //     return value.id != id;
+                    // });
+
+                    // redraw table
+                    readStudent();
+                }
+            });
+        }
+
+        // ====== add =======
+        function addStudent() {
+            // get added items
+            const name = document.querySelector('#txtName').value;
+            const age = document.querySelector('#txtAge').value;
+            // clear modal
+            document.querySelector('#txtName').value = "";
+            document.querySelector('#txtAge').value = "";
+
+            // insert new student to array
+            const newStudent = {id: students.length, name: name, age: age};
+            students.push(newStudent);
+            // redraw table
+            readStudent();
+        }
+
+        // ====== edit =======
+        function editStudent() { 
+            // console.log(editID);           
+            // get new data
+            const name = document.querySelector('#txtName').value;
+            const age = document.querySelector('#txtAge').value;
+            // update data in array
+            students[editID] = {name: name, age: age};          
+            // redraw table
+            readStudent();
+        }
+        
+        // call read function to show all data at the beginning
+        readStudent();
+        // find add modal
+        const modalAddEdit = new bootstrap.Modal(document.querySelector('#modalAddEdit'));
+    </script>
+</body>
+
+</html>

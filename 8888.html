@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENJOY EATING</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .jumbo {
+            background-image: url(/p8.png);
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<style>
+    #logout {
+        height: 2.5em;
+        width: 4em;
+        font-weight: 500;
+        border: none;
+        font-size: 16px;
+        border-radius: 5px;
+        color: rgb(165, 122, 42);
+        background-color: rgb(245, 189, 68);
+    }
+
+    #nav {
+        margin-right: 2em;
+    }
+
+    #add {
+        width: 3em;
+        height: 2em;
+        font-weight: 200;
+        border-radius: 5px;
+        border: none;
+        margin-right: 2em;
+
+    }
+</style>
+
+<body>
+    <nav id="nav" class="navbar navbar-expand-sm navbar-light d-flex flex-row-reverse">
+        <button id="logout" onclick="logout()">Logout</button>
+    </nav>
+    <div class="jumbo text-white text-center p-5">
+        <h1>ENJOY EATING</h1>
+        <p>Go to shopping your food</p>
+    </div>
+    <nav class="navbar navbar-expand-sm navbar-light d-flex flex-row-reverse ">
+        <button id="add" class="text-bg-success" data-bs-toggle="modal" data-bs-target="#myModal">Add</button>
+    </nav>
+
+    <div class="container mt-3 text-center">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>img</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+
+
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" style="background-color: #fd7e14; color:azure">
+                    <h4 class="modal-title ">Add New Food</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input style=" margin-bottom: 0.5em;" type="text" id="img" class="form-control"
+                        placeholder="Image Name">
+                    <input style=" margin-bottom: 0.5em;" type="text" id="food" class="form-control"
+                        placeholder="Food Name">
+                    <input style=" margin-bottom: 0.5em;" type="text" id="sub" class="form-control"
+                        placeholder="Sub Food Name">
+                    <input style=" margin-bottom: 0.5em;" type="text" id="price" class="form-control"
+                        placeholder="Price">
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn " style="background-color:#fd7e14; color:azure"
+                        data-bs-dismiss="modal" onclick="add()">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function logout() {
+            window.location.replace('./login.html');
+        }
+
+        var food = [
+            {
+                id: 0,
+                img: 'pizza.jpg',
+                name: 'Pizza',
+                des: 'A dish of Italian origin consisting of a flattened disk of bread dough topped with some combination of olive oil, oregano, tomato, olives, mozzarella or other cheese, and many other ingredients.',
+                price: '250'
+                
+            },
+            {
+                id: 1,
+                img: 'pizza.jpg',
+                name: 'Garlic bread',
+                des: 'Garlic bread is derived from the Italian bruschetta, a thickly sliced bread-based dish rubbed with olive oil and garlic gloves.',
+                price: '50'
+                
+            },
+            {
+                id: 2,
+                img: 'p8.png',
+                name: 'Spaghetti and meatballs',
+                des: 'Spaghetti and meatballs is an Italian and Italian-American dish consisting of spaghetti, tomato sauce and meatballs.',
+                price: '60'
+               
+            },
+
+        ]
+        // variable to keep add/edit mode
+        var mode = "add";
+
+
+
+
+        function readfood() {
+            let output = '<thead class="table"><tr><th>#</th><th>img</th> <th>Description</th> <th>Price</th> <th>Delete</th></tr></thead>';
+            output += '<tbody>';
+
+            food.forEach(function (food) {
+                output += `<tr>`;
+                output += `<td><input type="checkbox" name="" id=""></td>`
+                output += `<td><img src="/${food.img}" style = 'widht:100em; height:100px;''></td>`;
+                output += `<td><h4>${food.name}</h4>  <p style = 'height:10em;  '>${food.des}</p> </td>`;
+                output += `<td> <p>$ ${food.price}</p></td>`;
+                output += `<td><button class="text-bg-danger btnDelete" style="border: none;  width: 4em;height: 2em;font-weight: 200;border-radius: 5px;border: none;margin-right: 2em;" id=${food.id}>Delete</button></td>`;
+                output += `<tr>`;
+            });
+            output += '</tbody>';
+            document.querySelector('table').innerHTML = output;
+
+
+            const btnDelete = document.querySelectorAll('.btnDelete');
+            btnDelete.forEach(function (btn) {
+                btn.onclick = function () {
+                    deletefood(btn.id);
+                }
+            });
+        }
+
+        // --------- add food -----------
+        function add() {
+            // alert('add')
+            const img = document.querySelector('#img').value;
+            const food = document.querySelector('#food').value;
+            const sub = document.querySelector('#sub').value;
+            const price = document.querySelector('#price').value;
+            // alert(img)
+            //alert(food)
+            //alert(sub)
+            //alert(price)
+
+            const newFood =  {
+                id: food.length,
+                img: img,
+                name: food,
+                des: sub,
+                price: price
+               
+            }
+            
+            food.push(newFood);
+
+            
+
+            // window.location.reload();
+            readfood();
+        }
+
+        function deletefood(id) {
+            // confirm delete
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sure to delete this item?',
+                showCancelButton: true,
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // method1: loop to find deleted target index
+                    let i = 0;
+                    for (i = 0; i < food.length; i++) {
+                        if (food[i].id == id) {
+                            break;
+                        }
+                    }
+                    // delete that item in the array
+                    food.splice(i, 1);
+
+                    // method2: use filter()
+                    // students = students.filter(function(value) {
+                    //     return value.id != id;
+                    // });
+
+                    // redraw table
+                    readfood();
+                }
+            });
+        }
+        readfood();
+
+
+
+        // function deletefood(id) {
+        //     // confirm delete
+        //     Swal.fire({
+        //         icon: 'warning',
+        //         title: 'Sure to delete this item?',
+        //         showCancelButton: true,
+        //         confirmButtonText: 'OK'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             // method1: loop to find deleted target index
+        //             let i = 0;
+        //             for (i = 0; i < food.length; i++) {
+        //                 if (food[i].id == id) {
+        //                     break;
+        //                 }
+        //             }
+        //             // delete that item in the array
+        //             food.splice(i, 1);
+
+        //             // method2: use filter()
+        //             // students = students.filter(function(value) {
+        //             //     return value.id != id;
+        //             // });
+
+        //             // redraw table
+        //             readfood();
+        //         }
+        //     });
+        // }
+
+        // function addfood() {
+        //     // get added items
+        //     const img = document.querySelector('#img').value;
+        //     const name = document.querySelector('#food').value;
+        //     const des = document.querySelector('#sub').value;
+        //     const price = document.querySelector('#price').value;
+        //     // clear modal
+        //     document.querySelector('#img').value = "";
+        //     document.querySelector('#food').value = "";
+        //     document.querySelector('#sub').value = "";
+        //     document.querySelector('#price').value = "";
+
+
+        //     // insert new student to array
+        //     const newfood = { id: food.length, img: img, name: name, des: des, price: price };
+        //     food.push(newfood);
+        //     // redraw table
+        //     readfood();
+        // }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

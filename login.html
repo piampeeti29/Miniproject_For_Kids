@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="/csskids.css">
+  <link rel="stylesheet" href="button.css">
+</head>
+
+<body id="body">
+  <div class="d-flex flex-row-reverse p-3">
+    <button class="custom-btn btn-admin" id="submitadmmin">Admin</button><br>
+    <button class="custom-btn btn-admin" id="teacherlog">Teacher</button><br>
+  </div>
+
+  <div class="login_box" id="loginlog">
+    <div class="head">
+      <img src="/login/logo.png" id="aslog">
+    </div>
+
+
+    <div class="text">
+      <form id="formLogin">
+        <input type="text" id="username" name="uername" placeholder="Username">
+        <input type="password" id="password" name="password" placeholder="Password">
+        <center><button type="submit" class="container" id="submitlog">LOG IN</button></center>
+        <!-- <button onclick="regis()" id="submitlogin">REGISTER</button> -->
+        
+
+      </form>
+      <center><button id="submitlogin">REGISTER</button></center>
+    </div>
+  </div>
+</body>
+
+<script>
+
+
+  // function login() {
+  //   window.location.replace('homepage.html');
+  // }
+
+  const formLogin = document.querySelector('#formLogin');
+  // when click sign in button or submit form
+  formLogin.onsubmit = function (e) {
+    e.preventDefault();
+    // get login form            
+    // get username and password
+    const username = formLogin.elements['username'].value;
+    const password = formLogin.elements['password'].value;
+    // console.log(username, password);
+    const options = {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "username": username, "password": password }),
+    }
+    fetch('/login', options)
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        }
+        throw Error("Wrong username or password");
+      })
+      .then(function (data) {
+        // forward to welcome page
+        location.replace(data);
+      })
+      .catch(function (error) {
+        Swal.fire({
+          "icon": "error",
+          "title": error
+        })
+      });
+  }
+
+  // function loginad() {
+  //   window.location.assign('adminlog.html');
+  // }
+  document.querySelector('#submitadmmin').onclick = function () {
+    location.assign('/admin');
+  }
+
+  document.querySelector('#teacherlog').onclick = function () {
+    location.assign('/teachlog');
+  }
+  document.querySelector('#submitlogin').onclick = function () {
+    location.assign('/regis');
+  }
+
+
+</script>
+
+</html>

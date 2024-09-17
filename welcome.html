@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <title>ALPHABET</title>
+</head>
+<style>
+    body {
+        background-image: url(./public/img/3333.png);
+        background-size: 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+
+    }
+
+    .navbar {
+        background-color: #FFEC85;
+        padding: 0.8em;
+    }
+
+    .under-nav {
+        overflow: hidden;
+        background-color: #98D7FA;
+        padding: 0.2em;
+        margin-top: 0.01em;
+    }
+
+    .bg {
+        opacity: 0.5;
+    }
+
+    #logout {
+        color: #7D7A7A;
+        background-color: #FFABE3;
+        border: 0.4em solid;
+        border-color: #FFE8E8;
+        margin-left: 1.5em;
+    }
+
+    #cc {
+        width: 150em;
+        height: 4em;
+        background: #FFEC85;
+        padding: 1em 3em 1em;
+    }
+
+
+    #uu {
+        flex-direction: row;
+        display: flex;
+    }
+
+    #jj {
+        color: black;
+
+    }
+
+    #btn1,#btn2,#btn3 {
+        color: #FFE8E8;
+        background-color: #FE8888;
+        border: 0.3em solid;
+        border-color: #FFE8E8;
+        text-align: center;
+        font-size: 3em;
+        padding-top: 0.1em;
+        margin-left: 20em;
+    }
+
+    .modallesson1 {
+        background-color: white;
+    }
+
+    .dropdown-menu {
+        background-color: #98D7FA;
+
+    }
+
+    #dropA {
+        background-color: #FFEC85;
+    }
+
+    #dropN,
+    #dropC {
+        background-color: #FFEC85;
+        margin-top: 0.5em;
+    }
+
+    #sound {
+        margin-top: 2.5em;
+        background-color: #FDD0D0;
+        border: 0em;
+    }
+
+    #thaiText {
+        margin-top: 1.15em;
+        margin-left: 1em;
+    }
+
+    #marginAlp {
+        margin-left: 1em;
+    }
+
+</style>
+
+<body>
+    <!-- navbar -->
+    <div class="fixed-top">
+        <nav class="navbar ">
+            <div class="dropdown">
+                <button class="navbar-toggler" type="button" data-bs-toggle="dropdown">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" id="dropA" href="#">ALPHABET</a></li>
+                    <li><a class="dropdown-item" id="dropN" href="#">NUMBER</a></li>
+                    <li><a class="dropdown-item" id="dropC" href="#">COLOR</a></li>
+                </ul>
+            </div>
+            <a>
+                <button type="button" class="btn">Username</button>
+                <button type="button" class="btn shadow " id="logout">LOG OUT</button>
+            </a>
+
+        </nav>
+        <div class="under-nav"></div>
+    </div>
+
+    <!-- banner -->
+    <div class="img-fluid d-flex"><img src="./public/img/home.png"></div>
+
+
+    <!-- menu -->
+    <div class="container" id="menu">
+        
+            <div class="card m-5 p-2 justify-content-center" style="padding: 10px; box-shadow: 5px 10px 18px #888888;">
+                <div><img class="card-img-top" src="./public/lesson1.png"></div>
+                <div class="card-img-overlay">
+                    <div class="d-flex p-5 ">
+                        <div class="p-2 btn"
+                            style=" width:6em; height:2.5em;  padding: 10px; box-shadow: 5px 10px 18px #888888;"
+                            id="btn1" data-bs-toggle="modal" data-bs-target="#myModal1">
+                            Start
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+
+        <div class="card m-5 p-2 justify-content-center" style="padding: 10px; box-shadow: 5px 10px 18px #888888;">
+            <div><img class="card-img-top" src="./public/lesson2.png"></div>
+            <div class="card-img-overlay">
+                <div class="d-flex p-5 ">
+                    <div class="p-2 btn"
+                        style=" width:6em; height:2.5em;  padding: 10px; box-shadow: 5px 10px 18px #888888;" id="btn2"
+                        data-bs-toggle="modal" data-bs-target="#myModal2">
+                        Start
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-5 p-2 justify-content-center" style="padding: 10px; box-shadow: 5px 10px 18px #888888;">
+            <div><img class="card-img-top" src="./public/lesson3.png"></div>
+            <div class="card-img-overlay">
+                <div class="d-flex p-5 ">
+                    <div class="p-2 btn"
+                        style=" width:6em; height:2.5em;  padding: 10px; box-shadow: 5px 10px 18px #888888;" id="btn3"
+                        data-bs-toggle="modal" data-bs-target="#myModal3">
+                        Start
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 1 -->
+    <div class="container" id="modallesson1">
+        <div class="modal" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background-color: #FE8888; height: 1.5em;">
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" style="background-color: #FDD0D0;">
+                        <table class="table">
+                            <tbody id="mod1">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer" style="background-color: #FE8888;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 2 -->
+    <div class="container" id="modallesson2">
+        <div class="modal" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background-color: #FFEC85; height: 1.5em;">
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" style="background-color: #FBF2C4;">
+                        <table class="table">
+                            <tbody id="mod2">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer" style="background-color: #FFEC85;">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 3 -->
+    <div class="container" id="modallesson3">
+        <div class="modal" id="myModal3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background-color: #ECA1FF; height: 1.5em;">
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body" style="background-color: #F2D0FB ;">
+                        Modal body..
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer" style="background-color: #ECA1FF;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- botton-navbar -->
+    <div class="p-9 navbar-expand-sm text-white text-start" id="cc">
+        <div style="flex: grow 4;" id="uu">
+            <div id="ll" style="flex-grow: 3;"><img src="./public/img/Group.png"></div>
+            <div id="jj" style="flex-grow: 170;">kids@learningforkids.ac.th</div>
+            <div id="oo" style="flex-grow: 3;"><img src="./public/img/Vector (1).png"></div>
+            <div id="tt" style="flex-grow: 0;"><img src="./public/img/youtube.png"></div>
+        </div>
+    </div>
+
+    <script>
+        const alp1 = document.querySelector('#mod1');
+        //get data from server
+        fetch('http://localhost:9000/AtoH')
+            .then(function (response) {
+                if (response.ok) {
+                    //console.log(response.body);
+                    return response.json();
+                }
+
+                else {
+                    throw error('error');
+                }
+            })
+            .then(function (data) {
+                let productList = '';
+                // productList += `<p>${data[0].name}</p>`;
+                // productList += `<p>${data[1].name}</p>`;
+                data.forEach(function (alp1) {
+                    // productList += `<p>${product.name}</p>`;
+                    productList += `<tr><td><img src="./public/alphabet/${alp1.alphabet}" id="marginAlp"></td>`
+                    productList += `<td><button id="sound"><img src="./public/sound.png" ></button></td>`
+                    productList += `<td><h1 id="thaiText">${alp1.text}</h1></td></tr>`
+                })
+                alp1.innerHTML = productList;
+                //main.innerHTML = `<p>${data[0].name}</p>`;
+            })
+            .catch(function (error) {
+                console.error(error);
+                alert('Server error');
+            })
+
+
+    </script>
+</body>
+
+</html>

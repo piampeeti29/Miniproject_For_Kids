@@ -1,0 +1,16 @@
+{
+    "menus": [
+        {
+            "headName": "alphabet",
+            "image": "../public/alphabet.png"
+        },
+        {
+            "headName": "number",
+            "image": "../public/number.png"
+        },
+        {
+            "headName": "color",
+            "image": "../public/color.png"
+        }
+    ]
+}
